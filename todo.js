@@ -96,7 +96,11 @@ function addTodo(e){
 
         if(newTodo === ""){
             showAlert("danger","Please Enter a Todo.");
-        }else{
+        }
+        else if(checkTodoAlreadyExist(newTodo)){
+            showAlert("danger","This Todo Already Exist!");
+        }
+        else{
             showAlert("success","Todo Added!");
         addTodoToUI(newTodo);
         addTodoToStorage(newTodo);
@@ -105,6 +109,29 @@ function addTodo(e){
 
 
     e.preventDefault();
+}
+
+function checkTodoAlreadyExist(newTodo){
+
+    let todos = getTodosFromStorage();
+    let exist;
+
+    todos.forEach(function(todo){
+
+        if(todo === newTodo){
+            exist = true;
+            
+
+        }else{
+            if(!exist){
+                exist = false;
+            }
+            
+        }
+
+    });
+        return exist;
+
 }
 
 function addTodoToUI(newTodo){
